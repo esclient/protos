@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package comment;
+
+service CommentService {
+    rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse);
+}
+
+message CreateCommentRequest {
+    int64 mod_id = 1;
+    int64 author_id = 2;
+    string text = 3;
+}
+
+message CreateCommentResponse {
+    int64 comment_id = 1;
+}
