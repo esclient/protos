@@ -10,9 +10,8 @@ service UserService {
 }
 
 message LoginUserRequest {
-    optional string login = 1;
-    optional string email = 2;
-    string password = 3;
+    string username_or_email = 1;
+    string password = 2;
 }
 
 message RegisterUserRequest {
