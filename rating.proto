@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package rating;
+
+service RatingService {
+    rpc RateMod(RateModRequest) returns (RateModResponse);
+}
+
+message RateModRequest {
+    int64 mod_id = 1;
+    int64 author_id = 2;
+    int32 rating = 3;
+}
+
+message RateModResponse {
+    int64 rate_id = 1;
+}
