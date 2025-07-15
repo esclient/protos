@@ -30,5 +30,5 @@ message GetCommentsRequest {
 
 message GetCommentsResponse {
     int64 mod_id = 1;
-    repeated Comment comment = 2;
+    repeated Comment comments = 2;
 }
