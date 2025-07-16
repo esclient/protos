@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package CommentDelete;
+
+service DeleteComment
+{
+	rpc DeleteComment(CommentDeletionRequest) returns (CommentDeletionResponse);
+}
+
+message CommentDeletionRequest
+{
+	int64 comment_id = 1;
+}
+
+message CommentDeletionResponse
+{
+	bool CommentDeletionStatus = 1;
+	int64 StatusCode = 2;
+	optional string ErrorMessage = 3;
+}
