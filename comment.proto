@@ -5,7 +5,7 @@ package comment;
 service CommentService {
     rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse);
     rpc GetComments(GetCommentsRequest) returns (GetCommentsResponse);
-    rpc DeleteComment(CommentDeletionRequest) returns (CommentDeletionResponse);
+    rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse);
 }
 
 message Comment {
