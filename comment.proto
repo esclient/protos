@@ -5,6 +5,7 @@ package comment;
 service CommentService {
     rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse);
     rpc GetComments(GetCommentsRequest) returns (GetCommentsResponse);
+    rpc DeleteComment(CommentDeletionRequest) returns (CommentDeletionResponse);
 }
 
 message Comment {
@@ -31,4 +32,16 @@ message GetCommentsRequest {
 message GetCommentsResponse {
     int64 mod_id = 1;
     repeated Comment comments = 2;
+}
+
+message CommentDeletionRequest
+{
+	int64 comment_id = 1;
+}
+
+message CommentDeletionResponse
+{
+	bool CommentDeletionStatus = 1;
+	int64 StatusCode = 2;
+	optional string ErrorMessage = 3;
 }
