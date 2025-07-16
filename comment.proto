@@ -34,10 +34,10 @@ message GetCommentsResponse {
     repeated Comment comments = 2;
 }
 
-message CommentDeletionRequest {
+message DeleteCommentResponse {
 	int64 comment_id = 1;
 }
 
-message CommentDeletionResponse {
+message DeleteCommentRequest {
 	bool success = 1;
 }
