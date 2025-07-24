@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package email;
+
+service EmailService {
+    rpc SendEmail(SendEmailRequest) returns (SendEmailResponse);
+}
+
+enum EmailTemplate {
+    EMAIL_TEMPLATE_UNSPECIFIED = 0;
+    EMAIL_TEMPLATE_VERIFICATION_CODE = 1;
+}
+
+message EmailTemplateVar {
+    string key = 1;
+    string value = 2;
+}
+
+message SendEmailRequest {
+    string destination_email = 1;
+    EmailTemplate template = 2;
+    repeated EmailTemplateVar vars = 3;
+}
+
+message SendEmailResponse {
+    bool success = 1;
+}
