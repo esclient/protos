@@ -7,6 +7,7 @@ option go_package = "github.com/esclient/user-service";
 service UserService {
     rpc LoginUser(LoginUserRequest) returns (LoginUserResponse);
     rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
+    rpc VerifyUser(VerifyUserRequest) returns (VerifyUserResponse);
 }
 
 message LoginUserRequest {
@@ -21,10 +22,19 @@ message RegisterUserRequest {
     string confirm_password = 4;
 }
 
+message VerifyUserRequest {
+    int64 user_id = 1;
+    string confirmation_code = 2;
+}
+
 message LoginUserResponse {
     int64 user_id = 1;
 }
 
 message RegisterUserResponse {
     int64 user_id = 1;
+}
+
+message VerifyUserResponse {
+    bool is_verified = 1;
 }
