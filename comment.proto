@@ -10,11 +10,13 @@ service CommentService {
 }
 
 message Comment {
-    int64 id = 1;
-    int64 author_id = 2;
-    string text = 3;
-    int64 created_at = 4;
-    optional int64 edited_at = 5;
+  int64 id = 1;
+  int64 author_id = 2;
+  string text = 3;
+  int64 created_at = 4;
+  oneof optional_edited_at { 
+    int64 edited_at = 5;
+  }
 }
 
 message CreateCommentRequest {
