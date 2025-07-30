@@ -14,7 +14,7 @@ message Comment {
     int64 author_id = 2;
     string text = 3;
     int64 created_at = 4;
-    int64 edited_at = 5;
+    optional int64 edited_at = 5;
 }
 
 message CreateCommentRequest {
