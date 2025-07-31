@@ -1,6 +1,6 @@
-syntax = proto3
+syntax = "proto3";
 
-package mod
+package mod;
 
 service ModService {
     rpc TestMod(TestModRequest) returns (TestModResponse);
