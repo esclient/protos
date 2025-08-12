@@ -3,7 +3,7 @@ syntax = "proto3";
 package mod;
 
 service ModService {
-    rpc TestMod(TestModReques) returns (TestModResponse);
+    rpc TestMod(TestModRequest) returns (TestModResponse);
 }
 
 message TestModRequest {
