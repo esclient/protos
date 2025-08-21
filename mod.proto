@@ -19,8 +19,7 @@ message CreateModRequest {
     string mod_title = 1;
     int64 author_id = 2;
     string filename = 3;
-    string description 4;
-
+    string description = 4;
 }
 
 message CreateModResponse {
