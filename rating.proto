@@ -7,10 +7,19 @@ service RatingService {
     rpc GetRates(GetRatesRequest) returns (GetRatesResponse);
 }
 
+enum Rate {
+    RATE_UNSPECIFIED = 0;
+    RATE_1 = 1;
+    RATE_2 = 2;
+    RATE_3 = 3;
+    RATE_4 = 4;
+    RATE_5 = 5;
+}
+
 message RateModRequest {
     int64 mod_id = 1;
     int64 author_id = 2;
-    int32 rate = 3;
+    Rate rate = 3;
 }
 
 message RateModResponse {
