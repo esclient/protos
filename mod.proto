@@ -4,6 +4,7 @@ package mod;
 
 service ModService {
     rpc TestMod(TestModRequest) returns (TestModResponse);
+    rpc CreateMod(CreateModRequest) returns (CreateModResponse);
 }
 
 message TestModRequest {
@@ -12,4 +13,18 @@ message TestModRequest {
 
 message TestModResponse {
     bool success = 1;
+}
+
+message CreateModRequest {
+    string mod_title = 1;
+    int64 author_id = 2;
+    string filename = 3;
+    string description 4;
+
+}
+
+message CreateModResponse {
+    int64 mod_id = 1;
+    string upload_url = 2;
+    string s3_key = 3;
 }
