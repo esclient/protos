@@ -5,9 +5,9 @@ package user;
 option go_package = "github.com/esclient/user-service";
 
 service UserService {
-    rpc LoginUser(LoginUserRequest) returns (LoginUserResponse);
-    rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
-    rpc VerifyUser(VerifyUserRequest) returns (VerifyUserResponse);
+    rpc LoginUser (LoginUserRequest) returns (LoginUserResponse);
+    rpc RegisterUser (RegisterUserRequest) returns (RegisterUserResponse);
+    rpc VerifyUser (VerifyUserRequest) returns (VerifyUserResponse);
 }
 
 message LoginUserRequest {

@@ -3,8 +3,8 @@ syntax = "proto3";
 package rating;
 
 service RatingService {
-    rpc RateMod(RateModRequest) returns (RateModResponse);
-    rpc GetRates(GetRatesRequest) returns (GetRatesResponse);
+    rpc RateMod (RateModRequest) returns (RateModResponse);
+    rpc GetRates (GetRatesRequest) returns (GetRatesResponse);
 }
 
 enum Rate {
