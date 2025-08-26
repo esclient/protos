@@ -2,14 +2,14 @@ syntax = "proto3";
 
 package comment;
 
+import "google/protobuf/timestamp.proto";
+
 service CommentService {
   rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse);
   rpc GetComments(GetCommentsRequest) returns (GetCommentsResponse);
   rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse);
   rpc EditComment(EditCommentRequest) returns (EditCommentResponse);
 }
-
-import "google/protobuf/timestamp.proto";
 
 message Comment {
   int64 id = 1;
