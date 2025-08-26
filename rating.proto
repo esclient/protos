@@ -32,6 +32,9 @@ message GetRatesRequest {
 
 message GetRatesResponse {
   int64 rates_total = 1;
-  int64 likes = 2;
-  int64 dislikes = 3;
+  int64 rate_1 = 2;
+  int64 rate_2 = 3;
+  int64 rate_3 = 4;
+  int64 rate_4 = 5;
+  int64 rate_5 = 6;
 }
