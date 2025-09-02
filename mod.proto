@@ -4,6 +4,7 @@ package mod;
 
 service ModService {
   rpc CreateMod(CreateModRequest) returns (CreateModResponse);
+  rpc ConfirmUpload(ConfirmUploadRequest) returns (ConfirmUploadResponse);
 }
 
 message CreateModRequest {
@@ -17,4 +18,12 @@ message CreateModResponse {
   int64 mod_id = 1;
   string upload_url = 2;
   string s3_key = 3;
+}
+
+message ConfirmUploadRequest {
+  int64 mod_id = 1;
+}
+
+message ConfirmUploadResponse {
+  bool success = 1;
 }
