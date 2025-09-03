@@ -5,6 +5,7 @@ package mod;
 service ModService {
   rpc CreateMod(CreateModRequest) returns (CreateModResponse);
   rpc ConfirmUpload(ConfirmUploadRequest) returns (ConfirmUploadResponse);
+  rpc GetModDownloadLink(GetModDownloadLinkRequest) returns (GetModDownloadLinkResponse);
 }
 
 message CreateModRequest {
@@ -26,4 +27,12 @@ message ConfirmUploadRequest {
 
 message ConfirmUploadResponse {
   bool success = 1;
+}
+
+message GetModDownloadLinkRequest {
+  int64 mod_id = 1;
+}
+
+message GetModDownloadLinkResponse {
+  string link_url = 1;
 }
