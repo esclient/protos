@@ -6,3 +6,5 @@ format:
 lint:
 	buf format --diff --exit-code
 	buf lint
+
+dev-check: format lint

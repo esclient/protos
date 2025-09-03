@@ -5,7 +5,7 @@ package mod;
 service ModService {
   rpc CreateMod(CreateModRequest) returns (CreateModResponse);
   rpc ConfirmUpload(ConfirmUploadRequest) returns (ConfirmUploadResponse);
-  rpc GetModDownloadLink(GetModDownloadLinkRequest) returns(GetModDownloadLinkResponse);
+  rpc GetModDownloadLink(GetModDownloadLinkRequest) returns (GetModDownloadLinkResponse);
 }
 
 message CreateModRequest {
