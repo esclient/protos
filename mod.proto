@@ -9,9 +9,10 @@ service ModService {
 }
 
 enum ModStatus {
-  MOD_STATUS_UPLOADED = 0;
-  MOD_STATUS_BANNED = 1;
-  MOD_STATUS_HIDDEN = 2;
+  MOD_STATUS_UNSPECIFIED = 0;
+  MOD_STATUS_UPLOADED = 1;
+  MOD_STATUS_BANNED = 2;
+  MOD_STATUS_HIDDEN = 3;
 }
 
 message SetStatusRequest {
