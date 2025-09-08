@@ -4,8 +4,23 @@ package mod;
 
 service ModService {
   rpc CreateMod(CreateModRequest) returns (CreateModResponse);
-  rpc ConfirmUpload(ConfirmUploadRequest) returns (ConfirmUploadResponse);
+  rpc SetStatus(SetStatusRequest) returns (SetStatusResponse);
   rpc GetModDownloadLink(GetModDownloadLinkRequest) returns (GetModDownloadLinkResponse);
+}
+
+enum ModStatus {
+  MOD_STATUS_UPLOADED = 0;
+  MOD_STATUS_BANNED   = 1;
+  MOD_STATUS_HIDDEN   = 2;
+}
+
+message SetStatusRequest {
+  int64 mod_id = 1;
+  ModStatus status = 2;
+}
+
+message SetStatusResponse {
+  bool success = 1;
 }
 
 message CreateModRequest {
@@ -19,14 +34,6 @@ message CreateModResponse {
   int64 mod_id = 1;
   string upload_url = 2;
   string s3_key = 3;
-}
-
-message ConfirmUploadRequest {
-  int64 mod_id = 1;
-}
-
-message ConfirmUploadResponse {
-  bool success = 1;
 }
 
 message GetModDownloadLinkRequest {
