@@ -9,8 +9,10 @@ service ModService {
   rpc CreateMod(CreateModRequest) returns (CreateModResponse);
   rpc SetStatus(SetStatusRequest) returns (SetStatusResponse);
   rpc GetModDownloadLink(GetModDownloadLinkRequest) returns (GetModDownloadLinkResponse);
-  rpc GetMods(google.protobuf.Empty) returns (GetModsResponse);
+  rpc GetMods(GetModsRequest) returns (GetModsResponse);
 }
+
+message GetModsRequest {}
 
 message GetModsResponse {
   repeated Mod mods = 1;
