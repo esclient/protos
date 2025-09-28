@@ -9,16 +9,14 @@ service ModService {
   rpc CreateMod(CreateModRequest) returns (CreateModResponse);
   rpc SetStatus(SetStatusRequest) returns (SetStatusResponse);
   rpc GetModDownloadLink(GetModDownloadLinkRequest) returns (GetModDownloadLinkResponse);
-  rpc GetMods (google.protobuf.Empty) returns (GetModsResponse);
+  rpc GetMods(google.protobuf.Empty) returns (GetModsResponse);
 }
 
 message GetModsResponse {
   repeated Mod mods = 1;
 }
 
-
-
-message Mod{
+message Mod {
   int64 id = 1;
   int64 author_id = 2;
   string title = 3;
