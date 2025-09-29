@@ -4,37 +4,69 @@ package user;
 
 option go_package = "github.com/esclient/user-service";
 
+// Сервис для управления пользователями: регистрация, аутентификация и верификация
+// 
+// Этот сервис предоставляет функциональность для работы с пользователями,
+// Включая регистрацию новых аккаунтов, аутентификацию и подтверждение email.
 service UserService {
+  // Аутентификация пользователя в системе
   rpc LoginUser(LoginUserRequest) returns (LoginUserResponse);
+
+  // Регистрация нового пользователя
   rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
+
+  // Подтверждение после регистрации пользователя
   rpc VerifyUser(VerifyUserRequest) returns (VerifyUserResponse);
 }
 
+// Запрос для аутентификации пользователя
 message LoginUserRequest {
+  // Логин или email пользователя
   string username_or_email = 1;
+  
+  // Пароль пользователя
   string password = 2;
 }
 
+// Запрос для регистрации нового пользователя
 message RegisterUserRequest {
+  // Уникальный логин пользователя. Должен содержать только буквы, цифры и подчеркивания
   string login = 1;
+  
+  // Email пользователя. Должен быть валидным email адресом (однако доп. валидация будет проведена внутри сервиса) 
   string email = 2;
+  
+  // Пароль пользователя. должен содержать цифры и буквы
   string password = 3;
+  
+  // Подтверждение пароля. Должно совпадать с полем password
+  // Валидация и сравнение проводится внутри сервиса
   string confirm_password = 4;
 }
 
+// Запрос для подтверждения email пользователя
 message VerifyUserRequest {
+  // ID пользователя, которого нужно верифицировать. На данном этапе это число (int64)
   int64 user_id = 1;
+  
+  // Код подтверждения, отправленный на email пользователя. Валидация производится внутри сервиса
   string confirmation_code = 2;
 }
 
+// Ответ после успешной аутентификации
 message LoginUserResponse {
+  // ID аутентифицированного пользователя
   int64 user_id = 1;
 }
 
+// Ответ после успешной регистрации
 message RegisterUserResponse {
+  // ID зарегистрированного пользователя
   int64 user_id = 1;
 }
 
+// Ответ с результатом верификации
 message VerifyUserResponse {
+  // Флаг успешной верификации пользователя
   bool is_verified = 1;
 }
