@@ -11,10 +11,8 @@ option go_package = "github.com/esclient/user-service";
 service UserService {
   // Аутентификация пользователя в системе
   rpc LoginUser(LoginUserRequest) returns (LoginUserResponse);
-
   // Регистрация нового пользователя
   rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
-
   // Подтверждение после регистрации пользователя
   rpc VerifyUser(VerifyUserRequest) returns (VerifyUserResponse);
 }
@@ -23,7 +21,6 @@ service UserService {
 message LoginUserRequest {
   // Логин или email пользователя
   string username_or_email = 1;
-  
   // Пароль пользователя
   string password = 2;
 }
@@ -32,13 +29,10 @@ message LoginUserRequest {
 message RegisterUserRequest {
   // Уникальный логин пользователя. Должен содержать только буквы, цифры и подчеркивания
   string login = 1;
-  
   // Email пользователя. Должен быть валидным email адресом (однако доп. валидация будет проведена внутри сервиса) 
   string email = 2;
-  
   // Пароль пользователя. должен содержать цифры и буквы
   string password = 3;
-  
   // Подтверждение пароля. Должно совпадать с полем password
   // Валидация и сравнение проводится внутри сервиса
   string confirm_password = 4;
@@ -48,7 +42,6 @@ message RegisterUserRequest {
 message VerifyUserRequest {
   // ID пользователя, которого нужно верифицировать. На данном этапе это число (int64)
   int64 user_id = 1;
-  
   // Код подтверждения, отправленный на email пользователя. Валидация производится внутри сервиса
   string confirmation_code = 2;
 }
