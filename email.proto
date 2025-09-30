@@ -2,26 +2,43 @@ syntax = "proto3";
 
 package email;
 
+//Сервис для подтверждения аккаунта через эл. почту (email)
+//Сервис связан с user-сервисом, а именно регитсрацией, подтверждением и входом в аккаунт
+//
+//rpc для Email сервиса
 service EmailService {
+  //Отправка электронного письма пользователю на почту
   rpc SendEmail(SendEmailRequest) returns (SendEmailResponse);
 }
 
+//Шаблон письма
 enum EmailTemplate {
+  //Шаблон неопределен
   EMAIL_TEMPLATE_UNSPECIFIED = 0;
+  //Шаблон кода подтверждения
   EMAIL_TEMPLATE_VERIFICATION_CODE = 1;
 }
 
+//Плейслхолдеры для шаблона электронного письма
 message EmailTemplateVar {
+  //Ключ из шаблона
   string key = 1;
+  //Его значение для подстановки
   string value = 2;
 }
 
+//Запрос отправки email'a
 message SendEmailRequest {
+  //Email пользователя
   string destination_email = 1;
+  //Шаблон письма
   EmailTemplate template = 2;
+  //Переменные для подстановки
   repeated EmailTemplateVar vars = 3;
 }
 
+//Результат отправки письма
 message SendEmailResponse {
+  //Если письмо отправлено успешно, то возращается true
   bool success = 1;
 }
