@@ -6,4 +6,3 @@ lint:
     buf lint
 
 prepare: format lint
-    @:
