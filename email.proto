@@ -2,26 +2,45 @@ syntax = "proto3";
 
 package email;
 
+//Сервис для подтверждения аккаунта через эл. почту (email)
+//Сервис связан с user-сервисом, а именно регитсрацией, подтверждением и входом в аккаунт
+//
+//rpc для Email сервиса
 service EmailService {
+  //Отправка сообщения пользователю на почту
   rpc SendEmail(SendEmailRequest) returns (SendEmailResponse);
 }
 
+//Проверка существования кода
 enum EmailTemplate {
+  //кода нет либо код неправильный, выдает ошибку
   EMAIL_TEMPLATE_UNSPECIFIED = 0;
+  //Код существует (то есть верный)
   EMAIL_TEMPLATE_VERIFICATION_CODE = 1;
 }
 
+//Выбор кода для отправки (если я правильно понял)
 message EmailTemplateVar {
+  //номер вариации кода (условно код номер 18)
   string key = 1;
+  //сам код (к примеру 186745)
   string value = 2;
+  //
+  //то есть, (опять же, если я правильно понял) механизм выбирает номер кода (случайно) и отпрвляет сам код пользователю
 }
 
+//Запрос отправки email'a
 message SendEmailRequest {
+  //email пользователя
   string destination_email = 1;
+  //проверка существования кода
   EmailTemplate template = 2;
+  //сам код
   repeated EmailTemplateVar vars = 3;
 }
 
+//Подтверждение отправки email'а с кодом
 message SendEmailResponse {
+  //Если письмо отправлено возращается true
   bool success = 1;
 }
