@@ -4,53 +4,83 @@ package comment;
 
 import "google/protobuf/timestamp.proto";
 
+// Сервис для работы с комментариями: создание, получение, удаление, редактирование
 service CommentService {
+  // Создание комментария
   rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse);
+  // Получение комментариев
   rpc GetComments(GetCommentsRequest) returns (GetCommentsResponse);
+  // Удаление комментария
   rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse);
+  // Редактирование комментария
   rpc EditComment(EditCommentRequest) returns (EditCommentResponse);
 }
 
+// Комментарий
 message Comment {
+  // ID комментария
   int64 id = 1;
+  // ID автора комментария
   int64 author_id = 2;
+  // Текст комментария
   string text = 3;
+  // Во сколько создан комментарий
   google.protobuf.Timestamp created_at = 4;
+  // Во сколько изменён комментарий
   google.protobuf.Timestamp edited_at = 5;
 }
 
+// Запрос на создание комментария
 message CreateCommentRequest {
+  // ID мода
   int64 mod_id = 1;
+  // ID автора комментария
   int64 author_id = 2;
+  // Текст комментария
   string text = 3;
 }
 
+// Ответ на создание комментария
 message CreateCommentResponse {
   int64 comment_id = 1;
 }
 
+// Запрос на получение комментариев к моду
 message GetCommentsRequest {
+  // ID мода
   int64 mod_id = 1;
 }
 
+// Ответ на получение комментариев к моду
 message GetCommentsResponse {
+  // ID мода
   int64 mod_id = 1;
+  // Список комментариев к моду
   repeated Comment comments = 2;
 }
 
+// Запрос на удаление комментария
 message DeleteCommentRequest {
+  // ID комментария
   int64 comment_id = 1;
 }
 
+// Ответ на удаление комментария
 message DeleteCommentResponse {
+  // Удалось ли удалить комментарий
   bool success = 1;
 }
 
+// Запрос на редактирование комментария
 message EditCommentRequest {
+  // ID комментария
   int64 comment_id = 1;
+  // Текст комментария
   string text = 2;
 }
 
+// Ответ на редактирование комментария
 message EditCommentResponse {
+  // Удалось ли редактировать комментарий
   bool success = 1;
 }
