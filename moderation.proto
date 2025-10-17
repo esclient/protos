@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package moderation;
+
+service ModerationService {
+    rpc ModerateObject(ModerateObjectRequest) returns (ModerateObjectResponse);
+}
+
+message ModerateObjectRequest {
+    int64 object_id = 1;
+    ObjectType object = 2;
+}
+
+message ModerateObjectResponse {
+    bool success = 1;
+}
+
+enum ObjectType {
+    OBJECT_TYPE_UNSPECIFIED = 0;
+    OBJECT_TYPE_MOD_DESCRIPTION = 1;
+    OBJECT_TYPE_COMMENT_TEXT = 2;
+    OBJECT_TYPE_USER_NAME = 3;
+}
