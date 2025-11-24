@@ -4,14 +4,14 @@ package comment;
 
 import "google/protobuf/timestamp.proto";
 
-// Сервис для работы с комментариями: создание, получение, удаление, редактирование
+// Сервис для работы с комментариями: создание, получение, изменение статуса, редактирование
 service CommentService {
   // Создание комментария
   rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse);
   // Получение комментариев
   rpc GetComments(GetCommentsRequest) returns (GetCommentsResponse);
-  // Удаление комментария
-  rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse);
+  // Изменение статуса комментария
+  rpc SetStatus(SetStatusRequest) returns (SetStatusResponse);
   // Редактирование комментария
   rpc EditComment(EditCommentRequest) returns (EditCommentResponse);
 }
@@ -28,6 +28,14 @@ message Comment {
   google.protobuf.Timestamp created_at = 4;
   // Во сколько изменён комментарий
   google.protobuf.Timestamp edited_at = 5;
+}
+
+// Статус комментария
+enum CommentStatus {
+  COMMENT_STATUS_UNSPECIFIED = 0;
+  COMMENT_STATUS_DELETED = 1;
+  COMMENT_STATUS_HIDDEN = 2;
+  COMMENT_STATUS_ON_MODERATION = 3;
 }
 
 // Запрос на создание комментария
@@ -59,15 +67,17 @@ message GetCommentsResponse {
   repeated Comment comments = 2;
 }
 
-// Запрос на удаление комментария
-message DeleteCommentRequest {
+// Запрос на изменение статуса комментария
+message SetStatusRequest {
   // ID комментария
   int64 comment_id = 1;
+  // Статус комментария
+  CommentStatus status = 2;
 }
 
-// Ответ на удаление комментария
-message DeleteCommentResponse {
-  // Удалось ли удалить комментарий
+// Ответ на изменение статуса комментария
+message SetStatusResponse {
+  // Удалось ли изменить статус комментария
   bool success = 1;
 }
 
