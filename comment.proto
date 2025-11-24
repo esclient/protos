@@ -32,9 +32,10 @@ message Comment {
 
 // Статус комментария
 enum CommentStatus {
-  COMMENT_STATUS_DELETED = 0;
-  COMMENT_STATUS_HIDDEN = 1;
-  COMMENT_STATUS_ON_MODERATION = 2;
+  COMMENT_STATUS_UNSPECIFIED = 0;
+  COMMENT_STATUS_DELETED = 1;
+  COMMENT_STATUS_HIDDEN = 2;
+  COMMENT_STATUS_ON_MODERATION = 3;
 }
 
 // Запрос на создание комментария
