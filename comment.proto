@@ -4,53 +4,93 @@ package comment;
 
 import "google/protobuf/timestamp.proto";
 
+// Сервис для работы с комментариями: создание, получение, изменение статуса, редактирование
 service CommentService {
+  // Создание комментария
   rpc CreateComment(CreateCommentRequest) returns (CreateCommentResponse);
+  // Получение комментариев
   rpc GetComments(GetCommentsRequest) returns (GetCommentsResponse);
-  rpc DeleteComment(DeleteCommentRequest) returns (DeleteCommentResponse);
+  // Изменение статуса комментария
+  rpc SetStatus(SetStatusRequest) returns (SetStatusResponse);
+  // Редактирование комментария
   rpc EditComment(EditCommentRequest) returns (EditCommentResponse);
 }
 
+// Комментарий
 message Comment {
+  // ID комментария
   int64 id = 1;
+  // ID автора комментария
   int64 author_id = 2;
+  // Текст комментария
   string text = 3;
+  // Во сколько создан комментарий
   google.protobuf.Timestamp created_at = 4;
+  // Во сколько изменён комментарий
   google.protobuf.Timestamp edited_at = 5;
 }
 
+// Статус комментария
+enum CommentStatus {
+  COMMENT_STATUS_UNSPECIFIED = 0;
+  COMMENT_STATUS_DELETED = 1;
+  COMMENT_STATUS_HIDDEN = 2;
+  COMMENT_STATUS_ON_MODERATION = 3;
+}
+
+// Запрос на создание комментария
 message CreateCommentRequest {
+  // ID мода
   int64 mod_id = 1;
+  // ID автора комментария
   int64 author_id = 2;
+  // Текст комментария
   string text = 3;
 }
 
+// Ответ на создание комментария
 message CreateCommentResponse {
   int64 comment_id = 1;
 }
 
+// Запрос на получение комментариев к моду
 message GetCommentsRequest {
+  // ID мода
   int64 mod_id = 1;
 }
 
+// Ответ на получение комментариев к моду
 message GetCommentsResponse {
+  // ID мода
   int64 mod_id = 1;
+  // Список комментариев к моду
   repeated Comment comments = 2;
 }
 
-message DeleteCommentRequest {
+// Запрос на изменение статуса комментария
+message SetStatusRequest {
+  // ID комментария
   int64 comment_id = 1;
+  // Статус комментария
+  CommentStatus status = 2;
 }
 
-message DeleteCommentResponse {
+// Ответ на изменение статуса комментария
+message SetStatusResponse {
+  // Удалось ли изменить статус комментария
   bool success = 1;
 }
 
+// Запрос на редактирование комментария
 message EditCommentRequest {
+  // ID комментария
   int64 comment_id = 1;
+  // Текст комментария
   string text = 2;
 }
 
+// Ответ на редактирование комментария
 message EditCommentResponse {
+  // Удалось ли редактировать комментарий
   bool success = 1;
 }

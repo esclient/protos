@@ -1,0 +1,137 @@
+syntax = "proto3";
+
+package auth;
+
+// AuthService предоставляет методы для регистрации пользователя,
+// подтверждения email, аутентификации, обновления токенов,
+// валидации access токена и выхода из системы.
+service AuthService {
+
+  // Регистрация нового пользователя.
+  // После регистрации пользователю отправляется код подтверждения на email.
+  rpc Register(RegisterRequest) returns (AuthResponse);
+
+  // Подтверждение email пользователя после регистрации.
+  rpc VerifyUser(VerifyUserRequest) returns (VerifyUserResponse);
+
+  // Аутентификация пользователя по логину или email и паролю.
+  // При успешном входе создаётся новая сессия для устройства.
+  rpc Login(LoginRequest) returns (AuthResponse);
+
+  // Обновление пары access/refresh токенов.
+  // Используется, когда access токен истёк.
+  rpc RefreshTokens(RefreshRequest) returns (AuthResponse);
+
+  // Проверка валидности access токена.
+  rpc ValidateToken(ValidateRequest) returns (ValidateResponse);
+
+  // Выход из системы для текущего или всех устройств.
+  rpc Logout(LogoutRequest) returns (LogoutResponse);
+}
+
+// Запрос на регистрацию нового пользователя
+message RegisterRequest {
+  // Уникальный логин пользователя.
+  // Может содержать только буквы, цифры и подчёркивания.
+  string login = 1;
+  // Email пользователя.
+  // Должен быть валидным email адресом.
+  string email = 2;
+  // Пароль пользователя. Должен содержать буквы и цифры.
+  string password = 3;
+  // Идентификатор устройства, с которого производится регистрация.
+  // Используется для привязки первой сессии устройства.
+  string device_id = 4;
+  // Уникальный отпечаток устройства (генерируется клиентом).
+  // Используется для безопасности.
+  string device_fingerprint = 5;
+}
+
+
+// Запрос на вход пользователя в систему
+message LoginRequest {
+  // Логин пользователя.
+  // Если указано одновременно логин и email — логин имеет приоритет.
+  string login = 1;
+  // Email пользователя как альтернативный идентификатор.
+  string email = 2;
+  // Пароль пользователя.
+  string password = 3;
+  // Уникальный идентификатор устройства.
+  string device_id = 4;
+  // Уникальный отпечаток устройства.
+  // Может включать hash модели, версии ОС, мак-адресов и т. п.
+  string device_fingerprint = 5;
+}
+
+
+// Запрос для подтверждения email пользователя
+message VerifyUserRequest {
+  // ID пользователя, которого необходимо подтвердить.
+  int64 user_id = 1;
+  // Код подтверждения, отправленный на email.
+  string confirmation_code = 2;
+}
+
+
+// Ответ с результатом подтверждения email
+message VerifyUserResponse {
+  // Флаг успешного подтверждения пользователя.
+  bool is_verified = 1;
+}
+
+
+// Запрос на обновление access/refresh токенов
+message RefreshRequest {
+  // Текущий refresh токен.
+  // Должен быть действительным и не истёкшим.
+  string refresh_token = 1;
+  // Идентификатор устройства, для которого обновляется сессия.
+  string device_id = 2;
+}
+
+// Ответ, содержащий новые токены
+message AuthResponse {
+  // Новый access токен.
+  string access_token = 1;
+  // Новый refresh токен.
+  string refresh_token = 2;
+  // Unix timestamp, когда access токен истекает.
+  int64 access_expires_at = 3;
+  // Unix timestamp, когда refresh токен истекает.
+  int64 refresh_expires_at = 4;
+  // ID пользователя.
+  int64 user_id = 5;
+}
+
+// Запрос для проверки access токена
+message ValidateRequest {
+  // Проверяемый access токен.
+  string access_token = 1;
+}
+
+// Ответ по результатам проверки access токена
+message ValidateResponse {
+  // Флаг валидности токена.
+  bool is_valid = 1;
+  // ID пользователя, если токен валиден.
+  int64 user_id = 2;
+  // Логин пользователя.
+  string login = 3;
+}
+
+// Запрос для выхода пользователя
+message LogoutRequest {
+  // Refresh токен, который требуется деактивировать.
+  string refresh_token = 1;
+  // Идентификатор устройства.
+  string device_id = 2;
+  // Если true — пользователь выходит из всех устройств.
+  bool logout_all = 3;
+}
+
+// Ответ на запрос выхода
+message LogoutResponse {
+  // Флаг успешного логаута.
+  bool success = 1;
+}
