@@ -6,27 +6,38 @@ package auth;
 // подтверждения email, аутентификации, обновления токенов,
 // валидации access токена и выхода из системы.
 service AuthService {
-
   // Регистрация нового пользователя.
   // После регистрации пользователю отправляется код подтверждения на email.
-  rpc Register(RegisterRequest) returns (AuthResponse);
+  rpc Register(RegisterRequest) returns (RegisterResponse);
 
   // Подтверждение email пользователя после регистрации.
   rpc VerifyUser(VerifyUserRequest) returns (VerifyUserResponse);
 
   // Аутентификация пользователя по логину или email и паролю.
   // При успешном входе создаётся новая сессия для устройства.
-  rpc Login(LoginRequest) returns (AuthResponse);
+  rpc Login(LoginRequest) returns (LoginResponse);
 
   // Обновление пары access/refresh токенов.
   // Используется, когда access токен истёк.
-  rpc RefreshTokens(RefreshRequest) returns (AuthResponse);
+  rpc RefreshTokens(RefreshTokensRequest) returns (RefreshTokensResponse);
 
   // Проверка валидности access токена.
-  rpc ValidateToken(ValidateRequest) returns (ValidateResponse);
+  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
 
   // Выход из системы для текущего или всех устройств.
   rpc Logout(LogoutRequest) returns (LogoutResponse);
+}
+
+message RegisterResponse {
+  AuthResponse auth = 1;
+}
+
+message LoginResponse {
+  AuthResponse auth = 1;
+}
+
+message RefreshTokensResponse {
+  AuthResponse auth = 1;
 }
 
 // Запрос на регистрацию нового пользователя
@@ -47,7 +58,6 @@ message RegisterRequest {
   string device_fingerprint = 5;
 }
 
-
 // Запрос на вход пользователя в систему
 message LoginRequest {
   // Логин пользователя.
@@ -64,7 +74,6 @@ message LoginRequest {
   string device_fingerprint = 5;
 }
 
-
 // Запрос для подтверждения email пользователя
 message VerifyUserRequest {
   // ID пользователя, которого необходимо подтвердить.
@@ -73,16 +82,14 @@ message VerifyUserRequest {
   string confirmation_code = 2;
 }
 
-
 // Ответ с результатом подтверждения email
 message VerifyUserResponse {
   // Флаг успешного подтверждения пользователя.
   bool is_verified = 1;
 }
 
-
 // Запрос на обновление access/refresh токенов
-message RefreshRequest {
+message RefreshTokensRequest {
   // Текущий refresh токен.
   // Должен быть действительным и не истёкшим.
   string refresh_token = 1;
@@ -105,13 +112,13 @@ message AuthResponse {
 }
 
 // Запрос для проверки access токена
-message ValidateRequest {
+message ValidateTokenRequest {
   // Проверяемый access токен.
   string access_token = 1;
 }
 
 // Ответ по результатам проверки access токена
-message ValidateResponse {
+message ValidateTokenResponse {
   // Флаг валидности токена.
   bool is_valid = 1;
   // ID пользователя, если токен валиден.
